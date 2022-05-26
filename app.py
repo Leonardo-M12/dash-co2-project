@@ -5,7 +5,7 @@ app = Dash(__name__)
 app.layout = html.Div([
     html.Div([
         # header
-    ]),
+    ], className='app__header'),
 
     html.Br(),
 
@@ -20,7 +20,7 @@ app.layout = html.Div([
                     id='pan-co2-reg',
                     figure={}
                 )
-            ]),
+            ], className='pan__co2__reg__container'),
 
             html.Br(),
 
@@ -31,7 +31,7 @@ app.layout = html.Div([
                     id='pan-cum-co2',
                     figure={}
                 )
-            ]),
+            ], className='pan__cum__co2__container'),
 
             html.Br(),
 
@@ -43,8 +43,8 @@ app.layout = html.Div([
                     id='pan-decom-co2',
                     figure={}
                 )
-            ]),
-        ]),
+            ], className='pan__decom__co2__container'),
+        ], className='pan__graphs__container'),
 
         html.Br(),
 
@@ -58,7 +58,7 @@ app.layout = html.Div([
                     id='cen-am-co2',
                     figure={}
                 )
-            ]),
+            ], className='cen__am__co2__container'),
 
             html.Div([
                 # Central America: Annual CO2 per capita graph
@@ -67,14 +67,14 @@ app.layout = html.Div([
                     id='cen-am-co2-per-cap',
                     figure={}
                 )
-            ])
+            ], className='cen__am__co2__per__cap__container')
 
             
-        ])
+        ], className='cen__am__graphs__container')
 
-    ])
+    ], className='app__content')
 
-])
+], className='app__container')
 
 
 if __name__ == '__main__':
