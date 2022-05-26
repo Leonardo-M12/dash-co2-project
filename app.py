@@ -60,8 +60,6 @@ app.layout = html.Div([
                 )
             ]),
 
-            html.Br(),
-
             html.Div([
                 # Central America: Annual CO2 per capita graph
 
