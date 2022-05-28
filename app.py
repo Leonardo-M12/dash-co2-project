@@ -21,6 +21,8 @@ blz_co2 = co2_data.loc[co2_data["iso_code"] == "BLZ"]
 mex_co2 = co2_data.loc[co2_data["iso_code"] == "MEX"]
 
 
+### Static graphs ###
+
 pan_cum_co2_graph = px.line(
     pan_co2, x="year", y="cumulative_co2",
     labels=dict(
@@ -42,6 +44,55 @@ pan_cum_co2_graph.update_layout(
     yaxis_title="Million tonnes of CO2",
 )
 
+cen_am_co2_per_cap_graph = go.Figure()
+
+cen_am_co2_per_cap_graph.add_trace(
+    go.Scatter(
+        x=pan_co2["year"], y=pan_co2["co2_per_capita"],
+        mode="lines", name="Panama", line_shape="spline"))
+cen_am_co2_per_cap_graph.add_trace(
+    go.Scatter(
+        x=cri_co2["year"], y=cri_co2["co2_per_capita"],
+        mode="lines", name="Costa Rica", line_shape="spline"))
+cen_am_co2_per_cap_graph.add_trace(
+    go.Scatter(
+        x=nic_co2["year"], y=nic_co2["co2_per_capita"],
+        mode="lines", name="Nicaragua", line_shape="spline"))
+cen_am_co2_per_cap_graph.add_trace(
+    go.Scatter(
+        x=hnd_co2["year"], y=hnd_co2["co2_per_capita"],
+        mode="lines", name="Honduras", line_shape="spline"))
+cen_am_co2_per_cap_graph.add_trace(
+    go.Scatter(
+        x=slv_co2["year"], y=slv_co2["co2_per_capita"],
+        mode="lines", name="El Salvador", line_shape="spline"))
+cen_am_co2_per_cap_graph.add_trace(
+    go.Scatter(
+        x=gtm_co2["year"], y=gtm_co2["co2_per_capita"],
+        mode="lines", name="Guatemala", line_shape="spline"))
+cen_am_co2_per_cap_graph.add_trace(
+    go.Scatter(
+        x=blz_co2["year"], y=blz_co2["co2_per_capita"],
+        mode="lines", name="Belize", line_shape="spline"))
+cen_am_co2_per_cap_graph.add_trace(
+    go.Scatter(
+        x=mex_co2["year"], y=mex_co2["co2_per_capita"],
+        mode="lines", name="Mexico", line_shape="spline"))
+
+cen_am_co2_per_cap_graph.update_layout(
+    title={
+        'text': "CO2 per capita emissions from Central American countries",
+        'x':0.5,
+        'y':0.9,
+        'xanchor': 'center',
+        'yanchor': 'top'
+        },
+    xaxis_title="Year",
+    yaxis_title="Million tonnes of CO2",
+)
+
+
+### Layout ###
 
 app.layout = html.Div([
     html.Div([
@@ -126,14 +177,10 @@ app.layout = html.Div([
             html.Div([
                 # Central America: Annual CO2 per capita graph
 
-                dcc.Graph(id='cen-am-co2-per-cap'),
-
-                dcc.RadioItems(
-                    ['Annual', 'Cumulative'],
-                    value='Annual',
-                    id='cen-am-co2-per-cap-graph-mode',
-                    inline=True
-                )
+                dcc.Graph(
+                    id='cen-am-co2-per-cap',
+                    figure=cen_am_co2_per_cap_graph
+                    ),
 
             ], className='cen__am__co2__per__cap__container')
 
@@ -144,6 +191,8 @@ app.layout = html.Div([
 
 ], className='app__container')
 
+
+### Helpers and callbacks ###
 
 def adjust_mode(data_field, graph_mode):
     """
@@ -244,70 +293,6 @@ def update_cen_am_co2(graph_mode):
     fig.add_trace(
         go.Scatter(
             x=mex_co2["year"], y=mex_co2[adjust_mode("co2", graph_mode)],
-            mode="lines", name="Mexico", line_shape="spline"))
-
-    fig.update_layout(
-        title={
-            'text': "CO2 emissions from Central American countries",
-            'x':0.5,
-            'y':0.9,
-            'xanchor': 'center',
-            'yanchor': 'top'
-            },
-        xaxis_title="Year",
-        yaxis_title="Million tonnes of CO2",
-    )
-
-    return fig
-
-
-@app.callback(
-    Output('cen-am-co2-per-cap', 'figure'),
-    Input('cen-am-co2-per-cap-graph-mode', 'value')
-)
-def update_cen_am_co2_per_cap(graph_mode):
-    
-    fig = go.Figure()
-
-    fig.add_trace(
-        go.Scatter(
-            x=pan_co2["year"], 
-            y=pan_co2[adjust_mode("co2_per_capita", graph_mode)],
-            mode="lines", name="Panama", line_shape="spline"))
-    fig.add_trace(
-        go.Scatter(
-            x=cri_co2["year"], 
-            y=cri_co2[adjust_mode("co2_per_capita", graph_mode)],
-            mode="lines", name="Costa Rica", line_shape="spline"))
-    fig.add_trace(
-        go.Scatter(
-            x=nic_co2["year"], 
-            y=nic_co2[adjust_mode("co2_per_capita", graph_mode)],
-            mode="lines", name="Nicaragua", line_shape="spline"))
-    fig.add_trace(
-        go.Scatter(
-            x=hnd_co2["year"], 
-            y=hnd_co2[adjust_mode("co2_per_capita", graph_mode)],
-            mode="lines", name="Honduras", line_shape="spline"))
-    fig.add_trace(
-        go.Scatter(
-            x=slv_co2["year"], 
-            y=slv_co2[adjust_mode("co2_per_capita", graph_mode)],
-            mode="lines", name="El Salvador", line_shape="spline"))
-    fig.add_trace(
-        go.Scatter(
-            x=gtm_co2["year"], 
-            y=gtm_co2[adjust_mode("co2_per_capita", graph_mode)],
-            mode="lines", name="Guatemala", line_shape="spline"))
-    fig.add_trace(
-        go.Scatter(
-            x=blz_co2["year"], 
-            y=blz_co2[adjust_mode("co2_per_capita", graph_mode)],
-            mode="lines", name="Belize", line_shape="spline"))
-    fig.add_trace(
-        go.Scatter(
-            x=mex_co2["year"], 
-            y=mex_co2[adjust_mode("co2_per_capita", graph_mode)],
             mode="lines", name="Mexico", line_shape="spline"))
 
     fig.update_layout(
