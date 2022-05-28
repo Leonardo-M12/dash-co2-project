@@ -1,7 +1,10 @@
 from dash import Dash, html, dcc, Input, Output
 import plotly.express as px
 import plotly.graph_objects as go
+
+import numpy as np
 import pandas as pd
+import pickle
 
 
 ### Setup ###
@@ -92,6 +95,12 @@ cen_am_co2_per_cap_graph.update_layout(
 )
 
 
+### Load model ###
+
+with open("pan_co2_linear_model.pkl", "rb") as linear_model_file:
+    co2_linreg = pickle.load(linear_model_file)
+
+
 ### Layout ###
 
 app.layout = html.Div([
@@ -109,17 +118,14 @@ app.layout = html.Div([
             html.Div([
                 # Panama: Annual CO2 graph with regression
 
-                dcc.Graph(
-                    id='pan-co2-reg',
-                    figure={}
-                ),
+                dcc.Graph(id='pan-co2-reg'),
 
                 dcc.Slider(
                     min=2021,
                     max=2050,
                     step=1,
                     value=2050,
-                    marks={'2021': '2021', '2030': '2030', '2040': '2040', '2050': '2050'},
+                    marks={str(year): str(year) for year in range(2021, 2051, 5)},
                     id='pan-co2-reg-year'
                 )
 
@@ -214,7 +220,34 @@ def adjust_mode(data_field, graph_mode):
     Input('pan-co2-reg-year', 'value')
 )
 def update_pan_co2_reg(input_year):
-    pass
+
+    year_proy = np.arange(2021, input_year + 1)
+    co2_proy = co2_linreg.predict(
+                   np.arange(2021, input_year + 1).reshape(input_year - 2020,1))
+
+    fig = go.Figure()
+    fig.add_trace(
+        go.Scatter(
+            x=pan_co2["year"], y=pan_co2["co2"],
+            mode="lines+markers", name="Current data", line_shape="spline"))
+    fig.add_trace(
+        go.Scatter(
+            x=year_proy, y=co2_proy,
+            mode="lines+markers", name="Proyected data", line_shape="spline"))
+
+    fig.update_layout(
+        title={
+            'text': "Predictions for annual CO2 emissions from Panama",
+            'x':0.5,
+            'y':0.9,
+            'xanchor': 'center',
+            'yanchor': 'top'
+            },
+        xaxis_title="Year",
+        yaxis_title="Million tonnes of CO2",
+    )
+
+    return fig
 
 
 @app.callback(
@@ -309,6 +342,8 @@ def update_cen_am_co2(graph_mode):
 
     return fig
 
+
+### Run app ###
 
 if __name__ == '__main__':
     app.run_server(debug=True)
