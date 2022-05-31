@@ -11,6 +11,9 @@ import pickle
 
 app = Dash(__name__)
 
+app.title = "Panama and Central America CO2 visualization"
+server = app.server
+
 
 co2_data = pd.read_csv("owid-co2-data.csv")
 
@@ -22,6 +25,10 @@ slv_co2 = co2_data.loc[co2_data["iso_code"] == "SLV"]
 gtm_co2 = co2_data.loc[co2_data["iso_code"] == "GTM"]
 blz_co2 = co2_data.loc[co2_data["iso_code"] == "BLZ"]
 mex_co2 = co2_data.loc[co2_data["iso_code"] == "MEX"]
+
+
+with open("pan_co2_linear_model.pkl", "rb") as linear_model_file:
+    co2_linreg = pickle.load(linear_model_file)
 
 
 ### Static graphs ###
@@ -95,12 +102,6 @@ cen_am_co2_per_cap_graph.update_layout(
     yaxis_title="CO2 tonnes per person",
     font_family="DM Sans"
 )
-
-
-### Load model ###
-
-with open("pan_co2_linear_model.pkl", "rb") as linear_model_file:
-    co2_linreg = pickle.load(linear_model_file)
 
 
 ### Layout ###
@@ -374,4 +375,4 @@ def update_cen_am_co2(graph_mode):
 ### Run app ###
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run(debug=True)
