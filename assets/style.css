@@ -5,13 +5,17 @@ body {
 }
 
 .app__header {
+    margin-top: 40px;
+    margin-bottom: 40px;
     display: block;
     text-align: center;
 }
 
 .pan__co2__header {
+    margin-top: 40px;
+    margin-bottom: 40px;
     display: block;
-    text-align: left;
+    text-align: center;
 }
 
 .pan__graphs__container {
@@ -20,18 +24,26 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 .pan__co2__reg__container {
-    width: 80vh;
+    width: 120vh;
 }
 
 .pan__cum__co2__container {
-    width: 80vh;
+    width: 120vh;
 }
 
 .pan__decom__co2__container {
-    width: 80vh;
+    width: 120vh;
+}
+
+.cen__am__co2__header {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    display: block;
+    text-align: center;
 }
 
 .cen__am__graphs__container {

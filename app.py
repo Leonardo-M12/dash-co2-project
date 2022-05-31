@@ -121,12 +121,12 @@ app.layout = html.Div([
 
     ], className='app__header'),
 
-    html.Br(),
+    html.Hr(),
 
     html.Div([
         # body
         
-        html.H2("Data for Panama:", className="pan__co2__header"),
+        html.H2("Data for Panama", className="pan__co2__header"),
         
         html.Div([
             # Panama: all graphs
@@ -165,7 +165,7 @@ app.layout = html.Div([
                # Panama: Annual and cumulative decomposition of CO2 emissions
                # in cement, coal,and oil
                
-               dcc.Graph(id='pan-decom-co2'),
+                dcc.Graph(id='pan-decom-co2'),
 
                 dcc.RadioItems(
                     ['Annual', 'Cumulative'],
@@ -177,9 +177,9 @@ app.layout = html.Div([
             ], className='pan__decom__co2__container'),
         ], className='pan__graphs__container'),
 
-        html.Br(),
+        html.Hr(),
 
-        html.H2("Data for Central America:", className="cen__am__co2__header"),
+        html.H2("Data for Central America", className="cen__am__co2__header"),
 
         html.Div([
             # Central America: all graphs
@@ -211,8 +211,10 @@ app.layout = html.Div([
             
         ], className='cen__am__graphs__container'),
 
+        html.Hr(),
+
         html.Cite(
-            "Hannah Ritchie, Max Roser and Pablo Rosado (2020) - \"CO₂ and Greenhouse Gas Emissions\". Published online at OurWorldInData.org. Retrieved from: 'https://ourworldindata.org/co2-and-other-greenhouse-gas-emissions' [Online Resource]",
+            "[1] Hannah Ritchie, Max Roser and Pablo Rosado (2020) - \"CO₂ and Greenhouse Gas Emissions\". Published online at OurWorldInData.org. Retrieved from: 'https://ourworldindata.org/co2-and-other-greenhouse-gas-emissions' [Online Resource]",
             className='source__cite'
         )
 
