@@ -92,7 +92,7 @@ cen_am_co2_per_cap_graph.update_layout(
         'yanchor': 'top'
         },
     xaxis_title="Year",
-    yaxis_title="Million tonnes of CO2",
+    yaxis_title="CO2 tonnes per person",
     font_family="DM Sans"
 )
 
@@ -125,6 +125,9 @@ app.layout = html.Div([
 
     html.Div([
         # body
+        
+        html.H2("Data for Panama:", className="pan__co2__header"),
+        
         html.Div([
             # Panama: all graphs
             
@@ -176,6 +179,8 @@ app.layout = html.Div([
 
         html.Br(),
 
+        html.H2("Data for Central America:", className="cen__am__co2__header"),
+
         html.Div([
             # Central America: all graphs
 
@@ -204,7 +209,12 @@ app.layout = html.Div([
             ], className='cen__am__co2__per__cap__container')
 
             
-        ], className='cen__am__graphs__container')
+        ], className='cen__am__graphs__container'),
+
+        html.Cite(
+            "Hannah Ritchie, Max Roser and Pablo Rosado (2020) - \"CO₂ and Greenhouse Gas Emissions\". Published online at OurWorldInData.org. Retrieved from: 'https://ourworldindata.org/co2-and-other-greenhouse-gas-emissions' [Online Resource]",
+            className='source__cite'
+        )
 
     ], className='app__content')
 

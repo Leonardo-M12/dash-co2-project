@@ -8,3 +8,48 @@ body {
     display: block;
     text-align: center;
 }
+
+.pan__co2__header {
+    display: block;
+    text-align: left;
+}
+
+.pan__graphs__container {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pan__co2__reg__container {
+    width: 80vh;
+}
+
+.pan__cum__co2__container {
+    width: 80vh;
+}
+
+.pan__decom__co2__container {
+    width: 80vh;
+}
+
+.cen__am__graphs__container {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cen__am__co2__container {
+    width: 90vh;
+}
+
+.cen__am__co2__per__cap__container {
+    width: 90vh;
+}
+
+.source__cite {
+    font-size: 10px;
+}
