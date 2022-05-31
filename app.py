@@ -45,6 +45,7 @@ pan_cum_co2_graph.update_layout(
         },
     xaxis_title="Year",
     yaxis_title="Million tonnes of CO2",
+    font_family="DM Sans"
 )
 
 cen_am_co2_per_cap_graph = go.Figure()
@@ -92,6 +93,7 @@ cen_am_co2_per_cap_graph.update_layout(
         },
     xaxis_title="Year",
     yaxis_title="Million tonnes of CO2",
+    font_family="DM Sans"
 )
 
 
@@ -106,6 +108,17 @@ with open("pan_co2_linear_model.pkl", "rb") as linear_model_file:
 app.layout = html.Div([
     html.Div([
         # header
+
+        html.H1(
+            "CO2 emissions in Panama and Central America",
+            className="app__header__title"
+        ),
+        
+        html.P(
+            "This data was extracted from the Our World in Data organization [1].",
+            className="app__header__desc"
+        )
+
     ], className='app__header'),
 
     html.Br(),
@@ -245,6 +258,7 @@ def update_pan_co2_reg(input_year):
             },
         xaxis_title="Year",
         yaxis_title="Million tonnes of CO2",
+        font_family="DM Sans"
     )
 
     return fig
@@ -282,6 +296,7 @@ def update_pan_decom_co2(graph_mode):
             },
         xaxis_title="Year",
         yaxis_title="Million tonnes of CO2",
+        font_family="DM Sans"
     )
 
     return fig
@@ -338,6 +353,7 @@ def update_cen_am_co2(graph_mode):
             },
         xaxis_title="Year",
         yaxis_title="Million tonnes of CO2",
+        font_family="DM Sans"
     )
 
     return fig
